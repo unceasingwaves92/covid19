@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "ac577e17-b225-43a0-9066-3ab40fda5221",
+		"name": "Covid-19",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find the top 5 Country with Highest New Cases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01ca1108-5d29-46c1-9987-3b34fe039230",
+						"exec": [
+							"//const jsonData = pm.response.json()\r",
+							"//var fiveHighest = jsonData.slice(1,6);\r",
+							"//console.log(fiveHighest);\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"console.log(jsonData.length)\r",
+							" var maxIndex = 0;\r",
+							" var maxCount = 0;\r",
+							" let arr =[];\r",
+							" for(var i=1;i< jsonData.length-1;i++){\r",
+							"\r",
+							"    let countryName = jsonData[i][\"Country_text\"]\r",
+							"    let eachvalue = parseInt(jsonData[i][\"New Cases_text\"].replace(/\\D/g,'')) || 0;\r",
+							"      let obj = {\r",
+							"    country : countryName,\r",
+							"    newCases: eachvalue\r",
+							"    }\r",
+							"    arr.push (obj)\r",
+							"    }\r",
+							" \r",
+							"const cases = arr.sort(function (a, b) {\r",
+							"    if (a.newCases < b.newCases) {\r",
+							"        return 1;\r",
+							"    } else {\r",
+							"        return -1;\r",
+							"    }\r",
+							"}).slice(0,5)\r",
+							"console.log(cases)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid-19.dataflowkit.com/v1",
+					"protocol": "https",
+					"host": [
+						"covid-19",
+						"dataflowkit",
+						"com"
+					],
+					"path": [
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find the top 5 Country with lowest New Deaths Cases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e2b86d0-3a20-4c01-8c26-8ece3bda9ee9",
+						"exec": [
+							"//const jsonData = pm.response.json()\r",
+							"//const fiveLowest = jsonData.slice(-5);\r",
+							"//console.log(fiveLowest);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"console.log(jsonData.length)\r",
+							" var maxIndex = 0;\r",
+							" var maxCount = 0;\r",
+							" let arr =[];\r",
+							" for(var i=1;i< jsonData.length-1;i++){\r",
+							"\r",
+							"    let countryName = jsonData[i][\"Country_text\"]\r",
+							"    let eachvalue = parseInt(jsonData[i][\"New Deaths_text\"].replace(/\\D/g,\"\")) || 0;\r",
+							"      let obj = {\r",
+							"    country : countryName,\r",
+							"    newDeathCases: eachvalue\r",
+							"    }\r",
+							"    arr.push (obj)\r",
+							"    }\r",
+							" \r",
+							"const cases = arr.sort(function (a, b) {\r",
+							"   return a.newDeathCases - b.newDeathCases;\r",
+							"}).slice(-5)\r",
+							"console.log(cases)\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid-19.dataflowkit.com/v1",
+					"protocol": "https",
+					"host": [
+						"covid-19",
+						"dataflowkit",
+						"com"
+					],
+					"path": [
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find the Status of your Country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93da866f-30c7-4d29-a362-3081042e012d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid-19.dataflowkit.com/v1/India",
+					"protocol": "https",
+					"host": [
+						"covid-19",
+						"dataflowkit",
+						"com"
+					],
+					"path": [
+						"v1",
+						"India"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
